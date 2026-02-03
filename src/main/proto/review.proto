@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.embark.firstjobapp.grpc.review";
+option java_outer_classname = "ReviewProto";
+
+package review;
+
+service ReviewService {
+  rpc GetReviewById (ReviewIdRequest) returns (ReviewResponse);
+  rpc GetReviewsByCompanyId (CompanyIdRequest) returns (ReviewListResponse);
+}
+
+message ReviewIdRequest {
+  int64 companyId = 1;
+  int64 reviewId = 2;
+}
+
+message CompanyIdRequest {
+  int64 companyId = 1;
+}
+
+message ReviewResponse {
+  int64 id = 1;
+  int32 rating = 2;
+  string title = 3;
+  string description = 4;
+  int64 companyId = 5;
+}
+
+message ReviewListResponse {
+  repeated ReviewResponse reviews = 1;
+}

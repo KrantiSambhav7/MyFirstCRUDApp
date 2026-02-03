@@ -3,73 +3,44 @@ package com.embark.firstjobapp.review;
 import com.embark.firstjobapp.company.Company;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
+@Table(name = "reviews")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(exclude = "company")
 public class Review {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
+    private Long id;
+
+    @NotBlank(message = "Review title must not be blank")
+    @Column(nullable = false)
     private String title;
+
+    @NotBlank(message = "Review description must not be blank")
+    @Column(nullable = false)
     private String description;
+
+    @Min(value = 1, message = "Rating must be at least 1")
+    @Max(value = 5, message = "Rating must be at most 5")
+    @Column(nullable = false)
     private double rating;
-    
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "company_id")
     @JsonIgnore
     private Company company;
-
-    public Review() {
-    }
-
-    public Company getCompany() {   
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public Review(Long id, String title, String description, double rating) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.rating = rating;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-    
 }

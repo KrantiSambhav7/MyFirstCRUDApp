@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package company;
+
+option java_multiple_files = true;
+option java_package = "com.embark.firstjobapp.grpc.company";
+
+service CompanyService {
+  rpc GetCompanyById (CompanyIdRequest) returns (CompanyResponse);
+}
+
+message CompanyIdRequest {
+  int64 id = 1;
+}
+
+message CompanyResponse {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+}

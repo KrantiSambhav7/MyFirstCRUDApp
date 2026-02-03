@@ -6,75 +6,44 @@ import com.embark.firstjobapp.job.Job;
 import com.embark.firstjobapp.review.Review;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(exclude = {"jobs", "reviews"})
 public class Company {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank(message = "Company name must not be blank")
     private String name;
+
     private String description;
 
-    @OneToMany(mappedBy = "company") // Within the Job class, the company field is the one that is mapped by the company id
+    @OneToMany(
+        mappedBy = "company",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true,
+        fetch = FetchType.LAZY
+    )
     @JsonIgnore
     private List<Job> jobs;
 
-
-    @OneToMany(mappedBy = "company")
+    @OneToMany(
+        mappedBy = "company",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true,
+        fetch = FetchType.LAZY
+    )
+    @JsonIgnore
     private List<Review> reviews;
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
-
-    public Company() {
-    }
-
-    public Company(Long id, String name, String description, List<Job> jobs) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.jobs = jobs;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public List<Job> getJobs() {
-        return jobs;
-    }
-    
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setJobs(List<Job> jobs) {
-        this.jobs = jobs;
-    }
- }
+}

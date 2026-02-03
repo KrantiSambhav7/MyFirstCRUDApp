@@ -3,92 +3,46 @@ package com.embark.firstjobapp.job;
 import com.embark.firstjobapp.company.Company;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-// @Table(name = "job_table")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(exclude = "company")
 public class Job {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank
     private String title;
+
+    @NotBlank
     private String description;
-    private String minSalary;
-    private String maxSalary;
+
+    private Integer minSalary;
+    private Integer maxSalary;
+
+    @NotBlank
     private String location;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "company_id", nullable = false)
+    @NotNull
     private Company company;
-
-    public Job() {
-    }
-
-    public Job(Long id, String title, String description, String minSalary, String maxSalary, String location) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.minSalary = minSalary;
-        this.maxSalary = maxSalary;
-        this.location = location;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getMinSalary() {
-        return minSalary;
-    }
-
-    public String getMaxSalary() {
-        return maxSalary;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setMinSalary(String minSalary) {
-        this.minSalary = minSalary;
-    }
-
-    public void setMaxSalary(String maxSalary) {
-        this.maxSalary = maxSalary;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 }

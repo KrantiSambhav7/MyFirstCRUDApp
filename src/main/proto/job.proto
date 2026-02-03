@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package job;
+
+option java_multiple_files = true;
+option java_package = "com.embark.firstjobapp.grpc.job";
+option java_outer_classname = "JobProto";
+
+service JobService {
+  rpc GetJobById (JobIdRequest) returns (JobResponse);
+}
+
+message JobIdRequest {
+  int64 id = 1;
+}
+
+message JobResponse {
+  int64 id = 1;
+  string title = 2;
+  string description = 3;
+  string location = 4;
+  double minSalary = 5;
+  double maxSalary = 6;
+}
