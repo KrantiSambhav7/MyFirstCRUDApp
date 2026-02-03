@@ -1,7 +1,5 @@
 package com.embark.firstjobapp.job;
-
 import java.util.List;
-
 import com.embark.firstjobapp.dto.JobRequest;
 
 public interface JobService {

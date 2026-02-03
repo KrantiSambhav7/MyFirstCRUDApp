@@ -1,5 +1,4 @@
 package com.embark.firstjobapp.company;
-
 import java.util.List;
 
 public interface CompanyService {

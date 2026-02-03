@@ -42,7 +42,7 @@ public class JobController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Job> findUserById(@PathVariable Long id) {
+    public ResponseEntity<Job> findJobById(@PathVariable Long id) {
         logger.info("GET /jobs/{} called", id);
         try {
             Job job = jobService.findById(id);
@@ -50,12 +50,12 @@ public class JobController {
             return new ResponseEntity<>(job, HttpStatus.OK);
         } catch (Exception e) {
             logger.error("Failed to fetch job with id={}: {}", id, e.getMessage());
-            throw e; // Let GlobalExceptionHandler handle this
+            throw e;
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUserById(@PathVariable Long id) {
+    public ResponseEntity<String> deleteJobById(@PathVariable Long id) {
         logger.info("DELETE /jobs/{} called", id);
         try {
             jobService.deleteById(id);
@@ -68,7 +68,7 @@ public class JobController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> putUserById(@PathVariable Long id, @RequestBody Job updatedJob) {
+    public ResponseEntity<String> putJobById(@PathVariable Long id, @RequestBody Job updatedJob) {
         logger.info("PUT /jobs/{} called to update job with title='{}'", id, updatedJob.getTitle());
         try {
             boolean update = jobService.updateById(id, updatedJob);

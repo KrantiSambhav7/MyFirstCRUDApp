@@ -1,7 +1,5 @@
 package com.embark.firstjobapp.job;
-
 import com.embark.firstjobapp.company.Company;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;

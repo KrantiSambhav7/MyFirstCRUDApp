@@ -1,5 +1,4 @@
 package com.embark.firstjobapp.dto;
-
 import lombok.Getter;
 import lombok.Setter;
 

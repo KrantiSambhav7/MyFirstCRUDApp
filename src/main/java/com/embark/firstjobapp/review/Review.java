@@ -1,8 +1,6 @@
 package com.embark.firstjobapp.review;
-
 import com.embark.firstjobapp.company.Company;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

@@ -1,11 +1,8 @@
 package com.embark.firstjobapp.company;
-
 import java.util.List;
-
 import com.embark.firstjobapp.job.Job;
 import com.embark.firstjobapp.review.Review;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -47,3 +44,5 @@ public class Company {
     @JsonIgnore
     private List<Review> reviews;
 }
+
+
